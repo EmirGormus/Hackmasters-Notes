@@ -72,3 +72,5 @@ Saldırı sırasında kullanılan temel araçlar ve komutlar şunlardır:
 **Sonuç**
 
 Bu CTF senaryosu, **Log4Shell (CVE-2021-44228)** zafiyetinin gerçek dünya benzeri bir ortamda nasıl istismar edilebileceğini göstermektedir. Zafiyetli bir Log4j sürümünün, kötü niyetli LDAP ve HTTP sunucularıyla birlikte kullanılmasıyla, hedef sistem üzerinde tam yetkili uzaktan kod çalıştırma (reverse shell) erişimi elde edilebilmiştir. Bu durum, yazılım geliştirme süreçlerinde kullanılan kütüphanelerin güvenlik açıklarına karşı ne kadar dikkatli olunması gerektiğini ve güvenlik güncellemelerinin zamanında yapılmasının önemini vurgulamaktadır. Bir kaynakta, bu tür bir laboratuvarı Windows üzerinde çözerken virüs korumasının kapatılması gerekebileceği belirtilmektedir.
+
+Not: Abi ben bu labı böyle yazdım ama Internal server error yiyordum, o yüzden farazi biraz. Tüm serverları kurdum, bağladım ama dediğim gibi internal server error yedim.
