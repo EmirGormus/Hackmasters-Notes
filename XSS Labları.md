@@ -108,3 +108,12 @@ $(function() { $(a).attr("href",(new URLSearchParams(window.location.search)).ge
 - Bu fonksiyonu da URL üzerinden çağırıyoruz : `?returnPath=javascript:alert(document.cookie)`
 - Böylece Lab çözülmüş oldu.
 
+#### 10.Lab: DOM XSS in jQuery selector sink using a hashchange event
+
+Bu labda `location.hash` özelliğini kullanarak `print()` fonksiyonunu çağırmamız gerektiğini söylüyor.
+
+Adımlar:
+- exploit server üzerine `<iframe src="https://0adc0061045ca021825429f400de00d9.web-security-academy.net#" onload="this.src+='<img src=1 onerror=print(1)>'"></iframe>` yazıyoruz ve yolluyoruz.
+- Bu hashchange event ile bir fonksiyon çağırabiliyoruz.
+- Genelde hashchange event'i bir elemana scroll etmek için kullanılır.
+
