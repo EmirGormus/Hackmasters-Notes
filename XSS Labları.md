@@ -117,3 +117,54 @@ Adımlar:
 - Bu hashchange event ile bir fonksiyon çağırabiliyoruz.
 - Genelde hashchange event'i bir elemana scroll etmek için kullanılır.
 
+#### 11.Lab: DOM XSS in AngularJS expression with angle brackets and double quotes HTML-encoded
+
+Bu labda AngularJS'in ng-app directive'inin kullanıldığı söyleniyor ve bu bilgiyi kullanarak alert() oluşturmamız söyleniyor.
+
+Adımlar:
+- ng-app directive'ine sahip elemanın içinde 4 süslü parantez içinde kod çalıştırılabilir.
+- AngularJS ile JS fonksiyonu çağırmak için `{{$on.constructor('alert(1)')()}}` yazıyoruz.
+- Bu alert fonksiyonunu çalıştırıyor.
+- Lab çözüldü
+
+#### 12.Lab: Reflected XSS into attribute with angle brackets HTML-encoded
+
+Bu labda bizden alert veren bir xss sömürüsü yapmamız isteniyor. Uygulamanın `<`,`>` karakterlerini HTML encode ettiği söyleniyor.  Bu da bize labda kullanılan `<input>` etiketini değiştirmemiz gerektiğini gösteriyor.
+
+Adımlar:
+- Herhangi bir değer girip arama yapıyoruz.
+- Sayfa kaynağında aradığımız değerin `<input ... value="asdf">` şeklinde yansıdığını görüyoruz.
+- Bu value kısmını manipüle ederek sayfa kaynağını bozmalıyız.
+- Bunun için de arama çubuğuna `" onkeydown=alert(1) src="` ya da `" onmouseover=alert(1) src="` gibi bir ifade yazıyoruz. 
+- Herhangi bir tuşa bastığımızda ya da input elemanının üstüne mouse getirdiğimzde alert fonksiyonu çalışacak
+- Voila
+
+#### 13.Lab: Stored XSS into anchor `href` attribute with double quotes HTML-encoded
+
+Bu labda bizden stored XSS açığını kullanarak alert() fonksiyonunu çağırmamız istenmekte. Ayrıca `"` işaretinin yasaklı olduğu söylenmekte.
+
+Adımlar:
+- Yorum olarak web sitesi kısmına `javascript:alert(1)` yazıyoruz.
+- Voila Lab Solved
+
+#### 14.Lab: Reflected XSS into a JavaScript string with angle brackets HTML encoded
+
+Labda bizden yine alert fonksiyonunu çağırmamız isteniyor. Ayrıca `<` ,`>` karakterlerinin encode edildiği söyleniyor.
+
+Adımlar:
+- Bir aram yapın ve aramanızın `<script>` etiketinin içinde bir string olarak belirdiğini göreceksiniz
+- Bu sefer tırnaklardan kurtulmak için `var searchTerms = '5'; alert(1); var naber='tata` ifadesini girin
+- Bu alert fonksiyonunu çağıracaktır
+- Voila Lab Solved
+
+# 15.Lab: Reflected DOM XSS :: Couldn't Solve it
+
+#### 16.Lab: Stored DOM XSS
+
+Adımlar:
+- Herhangi bir arama yapıyoruz
+- burpten isteklere bakıyoruz
+- yorumumuzda `<script>alert(1)</script>` yazdığımızda `<script>alert(1)<\/script>` ifadesinin JSON olarak dönüldüğünü ve bunun da arama yapmak için bir js fonksiyonu ile kullanıldığını görüyoruz
+- Sayfa kaynağından js dosyasına baktığımızda `<` ,`>` karakterlerinin yerine `&lt;`,`&gt;` yazılarak kaçınıldığı görünüyor.
+- Bu bilgiler ışığında alert() fonksiyonu çalıştırmak için `<<iframe src=1 onload=alert(1) alt=>>` ifadesini yorum olarak giriyoruz.
+- Voila Lab solved
