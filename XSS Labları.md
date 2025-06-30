@@ -168,3 +168,4 @@ Adımlar:
 - Sayfa kaynağından js dosyasına baktığımızda `<` ,`>` karakterlerinin yerine `&lt;`,`&gt;` yazılarak kaçınıldığı görünüyor.
 - Bu bilgiler ışığında alert() fonksiyonu çalıştırmak için `<<iframe src=1 onload=alert(1) alt=>>` ifadesini yorum olarak giriyoruz.
 - Voila Lab solved
+
