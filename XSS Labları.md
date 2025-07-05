@@ -169,3 +169,13 @@ Adımlar:
 - Bu bilgiler ışığında alert() fonksiyonu çalıştırmak için `<<iframe src=1 onload=alert(1) alt=>>` ifadesini yorum olarak giriyoruz.
 - Voila Lab solved
 
+#### 17.Lab: Reflected XSS with some SVG markup allowed
+
+Bu labda bize bazı svg taglerinin ve eventlerenin geçerli oduğu söylenmekte bunun için de svg tag ve eventleri deneyeceğiz
+
+Adımlar:
+- Önce muhtemel SVG tagleri için burp intruder kullanıyoruz bu da bize rect, circle, ellipse, line, text, image, animatetransform, title gibi tagler bulunuyor
+- ardından bu tagler ile birlikte çeşitli eventleri denediğimizde onbegin eventinin yasak olamdığını görüyoruz.
+- Bundan dolayı da şunu aratıyoruz: `<svg><anitmatetransform onbegin=alert(1)></svg>`
+- Voila Lab solved
+
